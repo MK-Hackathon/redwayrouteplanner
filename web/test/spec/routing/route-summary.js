@@ -4,7 +4,7 @@ describe("Route summary test", function() {
     $rootScope;
 
   // Load the myApp module, which contains the directive
-  beforeEach(module('redwayrouting'));
+  beforeEach(module('webApp'));
 
   // Store references to $rootScope and $compile
   // so they are available to all tests in this describe block
