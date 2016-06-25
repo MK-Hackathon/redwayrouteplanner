@@ -36,6 +36,7 @@ var paths = {
   karma: yeoman.test + '/karma.conf.js',
   views: {
     main: yeoman.app + '/index.html',
+    bowermain: yeoman.temp + '/index.html',
     files: [yeoman.app + '/views/**/*.html']
   }
 };
@@ -159,7 +160,7 @@ gulp.task('client:build', ['bower', 'html'], function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
 
-  return gulp.src(paths.views.main)
+  return gulp.src(paths.views.bowermain)
     .pipe($.useref({searchPath: [yeoman.app, '.tmp']}))
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
