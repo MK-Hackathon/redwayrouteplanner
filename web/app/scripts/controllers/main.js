@@ -8,10 +8,13 @@
  * Controller of the webApp
  */
 angular.module('webApp')
-  .controller('MainCtrl', ['$scope', 'leafletData', function ($scope, leafletData) {
+  .controller('MainCtrl', ['$scope', 'leafletData', 'routeFindingService',
+      function ($scope, leafletData, routeFindingService) {
 
       $scope.findMyRoute = function() {
-          console.log($scope.options);
+          routeFindingService.findRoutes($scope.options).then(function(response) {
+              console.log(response);
+          });
       }
 
       angular.extend($scope, {
