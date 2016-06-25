@@ -12,10 +12,18 @@ angular.module('webApp')
       function ($scope, leafletData, routeFindingService) {
 
       $scope.findMyRoute = function() {
-          routeFindingService.findRoutes($scope.options).then(function(response) {
-              console.log(response);
+          routeFindingService.findRoutes($scope.options).then(function(routes) {
+              console.log(routes);
+              routes.forEach(function(route, i) {
+                  $scope.paths[i+""] = {
+                      type: 'polyline',
+                      latlngs: route.points
+                  }
+              });
+
           });
       }
+      $scope.paths = $scope.paths || {};
 
       angular.extend($scope, {
           center: {
