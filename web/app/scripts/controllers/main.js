@@ -18,12 +18,23 @@ angular.module('webApp')
                   $scope.paths[i+""] = {
                       type: 'polyline',
                       latlngs: route.points
-                  }
+                  };
+                  $scope.bounds = {
+                      southWest: {
+                          lat: route.bbox[1],
+                          lng: route.bbox[0]
+                      },
+                      northEast: {
+                          lat: route.bbox[3],
+                          lng: route.bbox[2]
+                      }
+                  };
               });
 
           });
-      }
+      };
       $scope.paths = $scope.paths || {};
+      $scope.bounds = $scope.bounds || {};
 
       angular.extend($scope, {
           center: {
@@ -35,7 +46,6 @@ angular.module('webApp')
       leafletData.getMap('map').then(function(map) {
           map.locate({setView: true, maxZoom: 16, watch: true, enableHighAccuracy: true});
           map.on('locationfound', function (e) {
-              console.log(e.latlng, e.accuracy)
               angular.extend($scope, {
                   markers: {
                       me: {
