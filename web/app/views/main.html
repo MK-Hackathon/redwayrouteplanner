@@ -14,6 +14,9 @@
   <button type="submit" class="btn-primary find-my-route" ng-click="findMyRoute()">Find my route</button>
 </form>
 <leaflet lf-center="center" markers="markers" paths="paths" bounds="bounds" width="100%" height="100%"></leaflet>
+<div ng-if="errors">
+    <span>No routes were found. Please check your spelling.</span>
+</div>
 <div ng-if="routes.length">
     <span>{{routes.length}} routes available</span>
     <a ng-click="editRoutes()">Edit route</a>

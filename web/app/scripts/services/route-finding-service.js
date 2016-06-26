@@ -33,7 +33,11 @@
                 };
                 return $http.post('https://3ffpwfgm6h.execute-api.eu-west-1.amazonaws.com/prod/routes', payload)
                 .then(function(response) {
-                    var route = JSON.parse(response.data).paths[0];
+                    if (response.data.errorMessage) {
+                        return [];
+                    }
+                    var parsedResponse = JSON.parse(response.data);
+                    var route = parsedResponse.paths[0];
                     route.instructions.forEach(function (instruction) {
                         instruction.sign = icons[instruction.sign + ''];
                         instruction.time = Math.round(instruction.time / 1000 / 60);
@@ -41,7 +45,6 @@
                     });
                     route.points = translatePoints(ghUtil.decodePath(route.points, false));
                     return [route];
-
                 });
             }
 

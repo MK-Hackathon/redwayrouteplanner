@@ -45,12 +45,16 @@ angular.module('webApp')
       }
 
       function addRoutes(routes) {
+          if (!routes.length) {
+              $scope.errors = true;
+          }
           $scope.routes = routes;
           unregisterEvents();
           routes.forEach(addRoute);
       }
 
       $scope.findMyRoute = function() {
+          $scope.errors = false;
           routeFindingService.findRoutes($scope.options).then(addRoutes);
       };
 
