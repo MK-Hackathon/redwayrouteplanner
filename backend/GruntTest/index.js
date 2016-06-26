@@ -6,6 +6,7 @@ exports.handler = (event, context, callback) => {
     
     var toReturn = {
       search: event.search,
+      version: "2",
       places: [ 
         {
           name: "Grunt_Place_1",
