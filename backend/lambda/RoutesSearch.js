@@ -4,6 +4,9 @@ console.log('Loading function');
 var toReturn = '';
 exports.handler = (event, context, callback) => {
     var startLocationQuery = encodeURI(event.Start);
+    // var query = require('querystring').parse(event.querystring);
+    // toReturn = query;
+    // var startLocationQuery = encodeURI(query.Start);
     var startQueryPath = '/search/' + startLocationQuery + '?format=json&countrycode=gb';
     var options = {
         host: "nominatim.openstreetmap.org",
@@ -19,7 +22,9 @@ exports.handler = (event, context, callback) => {
 
     var reqGet = https.request(options, function(res) {
         res.on('data', function (chunk) {
+                // var query = require('querystring').parse(event.querystring);
                 var endLocationQuery = encodeURI(event.End);
+                // var endLocationQuery = encodeURI(query.End);
                 var endQueryPath = '/search/' + endLocationQuery + '?format=json&countrycode=gb';
                 var options1 = {
                     host: "nominatim.openstreetmap.org",
@@ -45,13 +50,15 @@ exports.handler = (event, context, callback) => {
                             };
                             var reqGet = https.request(options2, function(res2) {
                                 res2.on('data', function (chunk2) {
-                                    toReturn = chunk2.toString('utf8');
-                                    // toReturn = options2.path;
+                                    //var toReturnObject = JSON.parse(chunk2);
+                                    // toReturn = "{" + "\"points\": " +  JSON.stringify(toReturnObject) + "}";
+                                    toReturn = chunk2.toString();
+                                    // toReturn = JSON.parse(chunk2);
+                                    callback(null, toReturn);
                                 });
                             }).end();
                         });
                 }).end();
             });
         }).end();
-        callback(null, toReturn);
 };
