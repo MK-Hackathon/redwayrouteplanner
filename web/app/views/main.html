@@ -21,7 +21,7 @@
               <span class="which-route">Route {{$index + 1}}</span>
             </div>
             <div class="col-xs-6">
-                <button class="btn-primary" ng-click="viewSteps($index)">View steps</button>
+                <button class="btn-primary" ng-click="viewSteps($index)">View steps &#x2193;</button>
             </div>
           </div>
           <div class="row">
@@ -39,12 +39,12 @@
           </br>
       </div>
     </div>
-    <div ng-if="selectedRoute">
-        <div ng-repeat="instruction in selectedRoute.instructions">
-            <div class="{{instruction.sign}}"></div>
-            <span>{{instruction.text}}</span>
-            <span>{{instruction.distance | number: 2}} miles</span>
-            <span>{{instruction.time | number: 2}} minutes</span>
+    <div ng-if="selectedRoute" class="container-fluid">
+        <div class="a-step row" ng-repeat="instruction in selectedRoute.instructions">
+            <div class="{{instruction.sign}} col-xs-2"><span style="font-size: 15px; font-style: italic; color: #e5e5e5;">Icons coming soon</div>
+            <span class="col-xs-6">{{instruction.text}}</span>
+            <span class="col-xs-2">{{instruction.distance | number: 2}} miles</span>
+            <span class="col-xs-2">{{instruction.time | number: 2}} minutes</span>
         </div>
     </div>
 </div>
