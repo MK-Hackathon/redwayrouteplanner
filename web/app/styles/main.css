@@ -108,12 +108,30 @@ form.route-input label {
 .minimiser {
   color: #575757;
   font-size: 16px;
+  position: absolute;
+  right: 20px;
+  top: 10px;
 }
 
 .routes-available {
   position: absolute;
   bottom: 0px;
-  height: 50px;
+  height: 150px;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  color: #333;
+}
+
+.how-many-routes {
+  font-size: 20px;
+  float: left;
+}
+
+.route-edit {
+  float: right;
+  font-size: 14px;
+  z-index: 9999;
 }
 
 /* Error div */
