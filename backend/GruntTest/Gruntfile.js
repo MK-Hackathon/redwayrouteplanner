@@ -16,8 +16,6 @@ module.exports = function(grunt) {
         default: {
             options: {
                 // Task-specific options go here.
-                file_name : "backend/grunt-test/index.js",
-                event : "backend/grunt-test/event.json"
             }
         }
     },
@@ -25,6 +23,15 @@ module.exports = function(grunt) {
         default: {
             options: {
                 // Task-specific options go here.
+            }
+        }
+    },
+    lambda_deploy: {
+        default: {
+            arn: 'arn:aws:lambda:eu-west-1:303107930060:function:GruntTest',
+            options: {
+                // Task-specific options go here.
+                region : "eu-west-1"
             }
         }
     }
@@ -37,5 +44,7 @@ module.exports = function(grunt) {
   // grunt.registerTask('default', ['uglify']);
 
   grunt.loadNpmTasks('grunt-aws-lambda');
+
+  grunt.registerTask('deploy', ['lambda_package', 'lambda_deploy:default']);
 
 };
