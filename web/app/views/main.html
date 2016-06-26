@@ -1,14 +1,18 @@
 <div class="col-xs-12 map-width">
 
-<!-- <form>
+<form class="route-input">
   <input type="text" ng-model="options.startingPoint" placeholder="Starting Point">
   <input type="text" ng-model="options.endPoint" placeholder="End Point">
-  <label><input type="checkbox" ng-model="options.minimiseHills">Minimise Hills</label>
-  <label><input type="checkbox" ng-model="options.preferRoads">Prefer Roads</label>
-  <label><input type="radio" ng-model="options.length" value="fastest">Fastest route</label>
-  <label><input type="radio" ng-model="options.length" value="shortest">Shortest route</label>
-  <button type="submit" ng-click="findMyRoute()">Find my route</button>
-</form> -->
+  <div class="route-options">
+    <label><input type="checkbox" ng-model="options.minimiseHills">Minimise Hills</label>
+    <label><input type="checkbox" ng-model="options.preferRoads">Prefer Roads</label>
+  </div>
+  <div class="route-type">
+    <label><input type="radio" ng-model="options.length" value="fastest">Fastest route</label>
+    <label><input type="radio" ng-model="options.length" value="shortest">Shortest route</label>
+  </div>
+  <button type="submit" class="btn-primary find-my-route" ng-click="findMyRoute()">Find my route</button>
+</form>
 <leaflet lf-center="center" markers="markers" paths="paths" bounds="bounds" width="100%" height="100%"></leaflet>
 <div ng-if="routes.length">
     <span>{{routes.length}} routes available</span>
