@@ -17,7 +17,7 @@
     <div ng-if="errors" class="error">
         <span>No routes were found, please check your spelling.</span>
     </div>
-    <div ng-if="routes.length">
+    <div ng-if="routes.length" class="routes-available">
         <span>{{routes.length}} routes available</span>
         <a ng-click="editRoutes()">Edit route</a>
         <div ng-repeat="route in routes track by $index">
