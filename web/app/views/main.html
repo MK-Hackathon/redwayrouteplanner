@@ -23,7 +23,7 @@
     <div ng-repeat="instruction in selectedRoute.instructions">
         <div class="{{instruction.sign}}"></div>
         <span>{{instruction.text}}</span>
-        <span>{{instruction.distance}}</span>
-        <span>{{instruction.time}}</span>
+        <span>{{instruction.distance | number: 2}} miles</span>
+        <span>{{instruction.time | number: 2}} minutes</span>
     </div>
 </div>
