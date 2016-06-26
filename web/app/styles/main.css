@@ -1,0 +1,130 @@
+/*
+  Stylerinos
+*/
+
+/* General soft transition */
+
+*:link, *:visited, *:hover, *:active, *:focus {
+-webkit-transition:
+color .25s linear,
+background-color .25s linear,
+border-color .25s linear;
+transition:
+color .25s linear,
+background-color .25s linear,
+border-color .25s linear;
+}
+
+html, body, .map-container, .map-row, .map-width {
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+  font-family: "Lato",Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.btn-primary {
+  background-image: none;
+  background-color: #B65B5C;
+  border: 0px;
+  padding: 5px 20px;
+}
+
+.btn-primary:hover {
+  background-image: none;
+  background-color: #544F64;
+  border: 0px;
+}
+
+.btn-secondary {
+  background-image: none;
+  background-color: #544F64;
+  border: 0px;
+}
+
+.btn-secondary:hover {
+  background-image: none;
+  background-color: #B65B5C;
+  border: 0px;
+}
+
+/* Leaflet zooming buttons */
+
+a.leaflet-control-zoom-in, a.leaflet-control-zoom-out {
+  border-radius: 0px !important;
+  color: #333;
+}
+
+.leaflet-bar {
+  box-shadow: none !important;
+  position: absolute;
+  top: 10px;
+}
+
+/* Map route input form */
+
+form.route-input {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  z-index: 999;
+  width: 80%;
+  background-color: #fff;
+  padding: 20px;
+}
+
+form.route-input input {
+  border: none;
+  border-bottom: 1px solid #979797;
+  margin: 10px;
+  padding-bottom: 10px;
+}
+
+form.route-input label {
+  font-weight: 300;
+  font-size: 16px;
+  display: block;
+  height: 20px;
+}
+
+.route-options {
+  width: 50%;
+  float: left;
+  margin-top: 10px;
+}
+
+.route-type {
+  margin-top: 10px;
+}
+
+.find-my-route {
+  float: right;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+.minimiser {
+  color: #575757;
+  font-size: 16px;
+}
+
+.routes-available {
+  position: absolute;
+  bottom: 0px;
+  height: 50px;
+}
+
+/* Error div */
+
+.error {
+  font-size: 14px;
+  color: #fff;
+  position: absolute;
+  bottom: 20px;
+  background-color: #B65B5C;
+  padding: 20px;
+  width: 80%;
+  left: 10%;
+}

@@ -1,29 +1,31 @@
-<form>
-  <input type="text" ng-model="options.startingPoint" placeholder="Starting Point">
-  <input type="text" ng-model="options.endPoint" placeholder="End Point">
-  <label><input type="checkbox" ng-model="options.minimiseHills">Minimise Hills</label>
-  <label><input type="checkbox" ng-model="options.preferRoads">Prefer Roads</label>
-  <label><input type="radio" ng-model="options.length" value="fastest">Fastest route</label>
-  <label><input type="radio" ng-model="options.length" value="shortest">Shortest route</label>
-  <button type="submit" ng-click="findMyRoute()">Find my route</button>
-</form>
-<leaflet lf-center="center" markers="markers" paths="paths" bounds="bounds" width="100%" height="480px"></leaflet>
-<div ng-if="routes.length">
-    <span>{{routes.length}} routes available</span>
-    <a ng-click="editRoutes()">Edit route</a>
-    <div ng-repeat="route in routes track by $index">
-        <span>Route {{$index + 1}}</span>
-        <span>{{route.time}}</span>
-        <span>{{route.distance}}</span>
-        <button ng-click="viewSteps($index)">View steps</button>
-        </br>
+<div class="col-xs-12 map-width">
+    <form class="route-input" name="routeOptions" ng-class="{'minimised':minimiseForm}">
+        <span class="minimiser" ng-click="toggleForm()">X</span>
+        <input type="text" ng-model="options.startingPoint" required placeholder="Starting Point">
+        <input type="text" ng-model="options.endPoint" required placeholder="End Point">
+        <button type="submit" class="btn-primary find-my-route" ng-disabled="routeOptions.$invalid" ng-click="findMyRoute()">Find my route</button>
+    </form>
+    <leaflet lf-center="center" markers="markers" paths="paths" bounds="bounds" width="100%" height="100%"></leaflet>
+    <div ng-if="errors" class="error">
+        <span>No routes were found, please check your spelling.</span>
     </div>
-</div>
-<div ng-if="selectedRoute">
-    <div ng-repeat="instruction in selectedRoute.instructions">
-        <div class="{{instruction.sign}}"></div>
-        <span>{{instruction.text}}</span>
-        <span>{{instruction.distance}}</span>
-        <span>{{instruction.time}}</span>
+    <div ng-if="routes.length" class="routes-available">
+        <span>{{routes.length}} routes available</span>
+        <a ng-click="editRoutes()">Edit route</a>
+        <div ng-repeat="route in routes track by $index">
+            <span>Route {{$index + 1}}</span>
+            <span>{{route.time}} minutes</span>
+            <span>{{route.distance | number: 2}} miles</span>
+            <button ng-click="viewSteps($index)">View steps</button>
+            </br>
+        </div>
+    </div>
+    <div ng-if="selectedRoute">
+        <div ng-repeat="instruction in selectedRoute.instructions">
+            <div class="{{instruction.sign}}"></div>
+            <span>{{instruction.text}}</span>
+            <span>{{instruction.distance | number: 2}} miles</span>
+            <span>{{instruction.time | number: 2}} minutes</span>
+        </div>
     </div>
 </div>
