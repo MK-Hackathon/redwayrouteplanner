@@ -11,13 +11,18 @@ angular.module('webApp')
   .controller('MainCtrl', ['$scope', 'leafletData', 'routeFindingService',
       function ($scope, leafletData, routeFindingService) {
 
+      var colours = ['red', 'blue', 'green'];
+
       $scope.findMyRoute = function() {
           routeFindingService.findRoutes($scope.options).then(function(routes) {
               console.log(routes);
+              $scope.routes = routes;
               routes.forEach(function(route, i) {
                   $scope.paths[i+""] = {
                       type: 'polyline',
-                      latlngs: route.points
+                      latlngs: route.points,
+                      color: colours[i],
+                      weight: 3
                   };
                   $scope.bounds = {
                       southWest: {
