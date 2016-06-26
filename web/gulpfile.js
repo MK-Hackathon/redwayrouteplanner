@@ -124,8 +124,8 @@ gulp.task('serve:prod', function() {
     },
     port: 80,
     middleware:function(connect, opt){
-      return [['/bower_components', connect["static"]('./bower_components')]
-      ]}
+      return [['/bower_components', connect["static"]('./bower_components')]]
+    }
   });
 });
 
@@ -140,12 +140,12 @@ gulp.task('test', ['start:server:test'], function () {
 
 // inject bower components
 gulp.task('bower', function () {
-  return gulp.src(paths.views.main)
+  return gulp.src(['index.html', paths.views.main])
     .pipe(wiredep({
       directory: 'bower_components',
       ignorePath: '..'
     }))
-  .pipe(gulp.dest(yeoman.app + '/views'));
+  .pipe(gulp.dest(yeoman.app));
 });
 
 ///////////
