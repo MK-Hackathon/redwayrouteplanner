@@ -36,7 +36,6 @@
                 }
                 payload.MinimiseHills = !!options.minimiseHills;
                 payload.PreferRoads = !!options.preferRoads;
-                console.log(payload);
                 return $http.post('https://3ffpwfgm6h.execute-api.eu-west-1.amazonaws.com/prod/routes', payload)
                 .then(function(response) {
                     if (response.data.errorMessage) {
