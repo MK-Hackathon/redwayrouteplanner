@@ -4,17 +4,32 @@ console.log('Loading function');
 var toReturn = '';
 exports.handler = (event, context, callback) => {
     var startLocationQuery = encodeURI(event.Start);
-    // var query = require('querystring').parse(event.querystring);
-    // toReturn = query;
-    // var startLocationQuery = encodeURI(query.Start);
+    var endLocationQuery = encodeURI(event.End);
     var startQueryPath = '/search/' + startLocationQuery + '?format=json&countrycode=gb';
+    var endQueryPath = '/search/' + endLocationQuery + '?format=json&countrycode=gb';
+    var isStartStreetName = ! event.Start.lat;
+    var isEndStreetName = ! event.End.lat;
+    var startLat;
+    var startLon;
+    var endLat;
+    var endLon;
+    if (!isStartStreetName) {
+        startLat = event.Start.lat;
+        startLon = event.Start.lon;
+        startQueryPath = '/reverse?format=json&lat=' + startLat + '&lon=' + startLon;
+    }
+    if (!isEndStreetName) {
+        endLat = event.End.lat;
+        endLon = event.End.lon;
+        endQueryPath = '/reverse?format=json&lat=' + endLat + '&lon=' + endLon;
+    }
     var options = {
         host: "nominatim.openstreetmap.org",
         port: 443,
         path: startQueryPath,
         method: 'GET',
         json:true
-        };
+    };
     var startSearchResponse;
     var startLatLong;
     var endSearchResponse;
@@ -22,10 +37,6 @@ exports.handler = (event, context, callback) => {
 
     var reqGet = https.request(options, function(res) {
         res.on('data', function (chunk) {
-                // var query = require('querystring').parse(event.querystring);
-                var endLocationQuery = encodeURI(event.End);
-                // var endLocationQuery = encodeURI(query.End);
-                var endQueryPath = '/search/' + endLocationQuery + '?format=json&countrycode=gb';
                 var options1 = {
                     host: "nominatim.openstreetmap.org",
                     port: 443,
@@ -33,14 +44,18 @@ exports.handler = (event, context, callback) => {
                     method: 'GET',
                     json:true
                 };                
-                startSearchResponse = JSON.parse(chunk);
-                // toReturn += chunk.toString() + "\n========\n";
-                startLatLong = startSearchResponse[0].lat + '%2C' + startSearchResponse[0].lon;
+                if (isStartStreetName) {
+                      startSearchResponse = JSON.parse(chunk);
+                      startLatLong = startSearchResponse[0].lat + '%2C' + startSearchResponse[0].lon;
+                } else
+                      startLatLong = startLat + '%2C' + startLon;
                 var reqGet1 = https.request(options1, function(res1) {
                         res1.on('data', function (chunk1) {
-                            endSearchResponse = JSON.parse(chunk1);
-                            //toReturn = chunk1.toString() + "\n========\n";
-                            endLatLong = endSearchResponse[0].lat + '%2C' + endSearchResponse[0].lon;
+                            if (isEndStreetName) {
+                                endSearchResponse = JSON.parse(chunk1);
+                                endLatLong = endSearchResponse[0].lat + '%2C' + endSearchResponse[0].lon;
+                            } else
+                                endLatLong = endLat + '%2C' + endLon;
                             var options2 = {
                                 host: "graphhopper.com",
                                 port: 443,
@@ -50,10 +65,7 @@ exports.handler = (event, context, callback) => {
                             };
                             var reqGet = https.request(options2, function(res2) {
                                 res2.on('data', function (chunk2) {
-                                    //var toReturnObject = JSON.parse(chunk2);
-                                    // toReturn = "{" + "\"points\": " +  JSON.stringify(toReturnObject) + "}";
                                     toReturn = chunk2.toString();
-                                    // toReturn = JSON.parse(chunk2);
                                     callback(null, toReturn);
                                 });
                             }).end();
