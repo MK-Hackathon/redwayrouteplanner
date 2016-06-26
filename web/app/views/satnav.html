@@ -1,5 +1,13 @@
 <leaflet lf-center="center" markers="markers" paths="paths" bounds="bounds" width="100%" height="480px"></leaflet>
 
 <ol>
-    <li ng-repeat="step in route.instructions">{{step.text}} <span>{{step.distance}}</span></li>
+    <li ng-repeat="step in route.instructions" ng-class="{active: $index==activeStep}">{{step.text}} <span>in {{step.distance}}m</span></li>
 </ol>
+
+<button type="submit" ng-click="showReportIncident = !showReportIncident">Report incident</button>
+
+<div ng-show="showReportIncident">
+    <h2>What would like to report?</h2>
+    <a>Street light out</a>
+    <a>No access</a>
+</div>
