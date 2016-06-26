@@ -49,6 +49,8 @@
                         instruction.distance = instruction.distance * 0.000621371192237;
                     });
                     route.points = translatePoints(ghUtil.decodePath(route.points, false));
+                    route.time = Math.round(route.time / 1000 / 60);
+                    route.distance = route.distance * 0.000621371192237;
                     return [route];
                 });
             }

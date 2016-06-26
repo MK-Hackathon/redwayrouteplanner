@@ -22,8 +22,8 @@
         <a ng-click="editRoutes()">Edit route</a>
         <div ng-repeat="route in routes track by $index">
             <span>Route {{$index + 1}}</span>
-            <span>{{route.time}}</span>
-            <span>{{route.distance}}</span>
+            <span>{{route.time}} minutes</span>
+            <span>{{route.distance | number: 2}} miles</span>
             <button ng-click="viewSteps($index)">View steps</button>
             </br>
         </div>
