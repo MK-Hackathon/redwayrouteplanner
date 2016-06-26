@@ -29,6 +29,11 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/satnav', {
+          templateUrl: 'views/satnav.html',
+          controller: 'SatnavCtrl',
+          controllerAs: 'satnav'
+      })
       .otherwise({
         redirectTo: '/'
       });
