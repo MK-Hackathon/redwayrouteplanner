@@ -1,10 +1,9 @@
-
 'use strict';
 var https = require('https');
 console.log('Loading function');
 var toReturn = '';
 exports.handler = (event, context, callback) => {
-    var startLocationQuery = event.Start;
+    var startLocationQuery = encodeURI(event.Start);
     var startQueryPath = '/search/' + startLocationQuery + '?format=json&countrycode=gb';
     var options = {
         host: "nominatim.openstreetmap.org",
@@ -20,7 +19,7 @@ exports.handler = (event, context, callback) => {
 
     var reqGet = https.request(options, function(res) {
         res.on('data', function (chunk) {
-                var endLocationQuery = event.End;
+                var endLocationQuery = encodeURI(event.End);
                 var endQueryPath = '/search/' + endLocationQuery + '?format=json&countrycode=gb';
                 var options1 = {
                     host: "nominatim.openstreetmap.org",
