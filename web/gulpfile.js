@@ -2,6 +2,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var cors = require('cors');
 var $ = require('gulp-load-plugins')();
 var openURL = require('open');
 var lazypipe = require('lazypipe');
@@ -73,7 +74,7 @@ gulp.task('start:server', function() {
     livereload:true,
     port: 9000,
     middleware:function(connect, opt){
-      return [['/bower_components',
+      return [cors(), ['/bower_components',
         connect["static"]('./bower_components')]]
     }
   });
