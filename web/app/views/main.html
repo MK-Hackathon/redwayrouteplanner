@@ -9,18 +9,35 @@
     <div ng-if="errors" class="error">
         <span>No routes were found, please check your spelling.</span>
     </div>
-    <div ng-if="routes.length" class="routes-available">
-      <div class="routes-title">
-        <span class="how-many-routes">{{routes.length}} routes available</span>
-        <a ng-click="editRoutes()">Edit route</a>
+    <div ng-if="routes.length" class="routes-available container-fluid">
+      <div class="routes-title row">
+        <span class="how-many-routes col-xs-8">{{routes.length}} route available</span>
+        <!-- <a class="route-edit col-xs-4" ng-click="editRoutes()">Edit route</a> -->
       </div>
-        <div ng-repeat="route in routes track by $index">
-            <span>Route {{$index + 1}}</span>
-            <span>{{route.time}} minutes</span>
-            <span>{{route.distance | number: 2}} miles</span>
-            <button ng-click="viewSteps($index)">View steps</button>
-            </br>
+      <div class="row" ng-repeat="route in routes track by $index">
+        <div class="container-fluid route-info">
+          <div class="row">
+            <div class="col-xs-6">
+              <span class="which-route">Route {{$index + 1}}</span>
+            </div>
+            <div class="col-xs-6">
+                <button class="btn-primary" ng-click="viewSteps($index)">View steps</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <span class="minutes">{{route.time}} minutes</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <span class="miles">{{route.distance | number: 2}} miles</span>
+            </div>
+          </div>
         </div>
+
+          </br>
+      </div>
     </div>
     <div ng-if="selectedRoute">
         <div ng-repeat="instruction in selectedRoute.instructions">

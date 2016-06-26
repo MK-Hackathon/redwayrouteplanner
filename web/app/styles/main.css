@@ -25,6 +25,10 @@ html, body, .map-container, .map-row, .map-width {
   font-size: 16px;
 }
 
+.leaflet-control-attribution.leaflet-control {
+    display: none;
+}
+
 .btn-primary {
   background-image: none;
   background-color: #B65B5C;
@@ -113,26 +117,56 @@ form.route-input label {
   top: 10px;
 }
 
+.routes-available.container-fluid.ng-scope {
+    padding: 0px;
+}
+
+.route-info {
+    padding-left: 30px;
+}
+
 .routes-available {
   position: absolute;
   bottom: 0px;
-  height: 150px;
+  height: 190px;
   width: 100%;
   background-color: white;
   padding: 20px;
   color: #333;
 }
 
+.routes-title {
+  margin-bottom: 20px;
+  width: 100%;
+  border-bottom: 1px solid #979797;
+  padding: 20px;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+  padding-right: 0px;
+}
+
 .how-many-routes {
   font-size: 20px;
-  float: left;
 }
 
 .route-edit {
-  float: right;
   font-size: 14px;
-  z-index: 9999;
+  padding-top: 5px;
 }
+
+.which-route {
+  font-size: 18px;
+  padding: 20px;
+}
+
+.minutes {
+  padding: 20px;
+}
+
+.miles {
+  padding: 20px;
+}
+
 
 /* Error div */
 
