@@ -10,7 +10,11 @@
 angular.module('webApp')
   .controller('MainCtrl', ['$scope', 'leafletData', 'routeFindingService',
       function ($scope, leafletData, routeFindingService) {
-
+          $scope.options = {
+              route: 'fastest',
+              minimiseHills: false,
+              preferRoads: false
+          };
       var colours = ['red', 'blue', 'green'],
           events = [];
 

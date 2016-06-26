@@ -31,6 +31,12 @@
                     Start: options.startingPoint + ', Milton Keynes',
                     End: options.endPoint + ', Milton Keynes'
                 };
+                if(options.route && (options.route == 'fastest' || options.route == 'shortest' )) {
+                    payload.Route = options.route;
+                }
+                payload.MinimiseHills = !!options.minimiseHills;
+                payload.PreferRoads = !!options.preferRoads;
+                console.log(payload);
                 return $http.post('https://3ffpwfgm6h.execute-api.eu-west-1.amazonaws.com/prod/routes', payload)
                 .then(function(response) {
                     var route = JSON.parse(response.data).paths[0];
