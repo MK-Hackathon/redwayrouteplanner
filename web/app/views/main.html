@@ -5,7 +5,7 @@
         <input type="text" ng-model="options.endPoint" required placeholder="End Point">
         <button type="submit" class="btn-primary find-my-route" ng-disabled="routeOptions.$invalid" ng-click="findMyRoute()">Find my route</button>
     </form>
-    <leaflet lf-center="center" markers="markers" paths="paths" bounds="bounds" width="100%" height="100%"></leaflet>
+    <leaflet lf-center="center" markers="markers" defaults="defaults" paths="paths" bounds="bounds" width="100%" height="100%"></leaflet>
     <div ng-if="errors" class="error">
         <span>No routes were found, please check your spelling.</span>
     </div>
