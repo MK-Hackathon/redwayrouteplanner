@@ -79,6 +79,9 @@ angular.module('webApp')
           center: {
               autoDiscover: true,
               zoom: 12
+          },
+          defaults: {
+              scrollWheelZoom: false
           }
       });
 
