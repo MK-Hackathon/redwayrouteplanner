@@ -90,7 +90,7 @@ form.route-input label {
 }
 
 .route-options {
-  width: 48%;
+  width: 50%;
   float: left;
   margin-top: 10px;
 }
@@ -103,4 +103,18 @@ form.route-input label {
   float: right;
   margin-right: 10px;
   margin-top: 20px;
+}
+
+
+/* Error div */
+
+.error {
+  font-size: 14px;
+  color: #fff;
+  position: absolute;
+  bottom: 20px;
+  background-color: #B65B5C;
+  padding: 20px;
+  width: 80%;
+  left: 10%;
 }
