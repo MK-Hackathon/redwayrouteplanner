@@ -3,14 +3,6 @@
         <span class="minimiser" ng-click="toggleForm()">X</span>
         <input type="text" ng-model="options.startingPoint" required placeholder="Starting Point">
         <input type="text" ng-model="options.endPoint" required placeholder="End Point">
-        <div class="route-options">
-            <label><input type="checkbox" ng-model="options.minimiseHills">Minimise Hills</label>
-            <label><input type="checkbox" ng-model="options.preferRoads">Prefer Roads</label>
-        </div>
-        <div class="route-type">
-            <label><input type="radio" ng-model="options.route" value="fastest">Fastest route</label>
-            <label><input type="radio" ng-model="options.route" value="shortest">Shortest route</label>
-        </div>
         <button type="submit" class="btn-primary find-my-route" ng-disabled="routeOptions.$invalid" ng-click="findMyRoute()">Find my route</button>
     </form>
     <leaflet lf-center="center" markers="markers" paths="paths" bounds="bounds" width="100%" height="100%"></leaflet>
