@@ -48,11 +48,14 @@ angular.module('webApp')
           $scope.routes = routes;
           unregisterEvents();
           routes.forEach(addRoute);
-          $scope.selectedRoute = $scope.routes[0];
       }
 
       $scope.findMyRoute = function() {
           routeFindingService.findRoutes($scope.options).then(addRoutes);
+      };
+
+      $scope.viewSteps = function(i) {
+          $scope.selectedRoute = $scope.routes[i];
       };
 
       $scope.paths = $scope.paths || {};

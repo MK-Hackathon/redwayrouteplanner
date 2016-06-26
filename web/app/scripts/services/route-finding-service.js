@@ -4,6 +4,19 @@
     angular.module('webApp')
         .factory('routeFindingService', ['ghUtil', function (ghUtil) {
 
+            var icons = {
+                '-3': 'sharpLeft',
+                '-2': 'left',
+                '-1': 'slightLeft',
+                '0': 'continue',
+                '1': 'slightRight',
+                '2': 'right',
+                '3': 'sharpRight',
+                '4': 'finish',
+                '5': 'viaReached',
+                '6': 'useRoundabout'
+            };
+
             function translatePoints(points) {
                 return points.map(function (point) {
                     return {
@@ -20,6 +33,7 @@
                         bbox: [-0.815678, 52.038963, -0.757355, 52.060717],
                         ascend: 53.3,
                         distance: 7036,
+                        time: 419966,
                         instructions: [
                             {
                                 "distance": 25.148,
@@ -85,8 +99,16 @@
                         points: translatePoints(ghUtil.decodePath("ixv|Hr}}CzGm@NEzEwEbAiAtC_DdDvKlAzDh@`AdAfA^XrCcOG]Ac@Fa@q@_DqAaFsAsFwBmL[yBsBsRgC}Pg@oBc@qAoBgEu@aCWiAe@aC_AsGm@wFOkD[gO]{DESKg@MAMOG]@YLYJGj@PXEjB{@bBg@l@UbB{@hAu@bBqAnAgArB{Bj@w@b@u@F_@Da@DMRSVATMNMfGwKdAwAr@{@|@aAdBwAdCaBhBq@vAa@|D_AnGwBnAi@RYTk@Lc@HINIlANTAvBkAxRoMzDcCTOPWRc@Lq@FiCEcBOoAiC{JcCgIQa@[[OEMQG[A]F]HMLKT?n@Od@QhFiGd@y@X]V]zCoDvCkDV[HVrD`LrAbE", false)),
                         bbox: [-0.815143, 52.036922, -0.764695, 52.059099],
                         ascend: 60.0,
-                        distance: 6000
-                    }]);
+                        distance: 6000,
+                        instructions: []
+                    }].map(function (route) {
+                        route.instructions.forEach(function (instruction) {
+                            instruction.sign = icons[instruction.sign + ''];
+                            instruction.time = Math.round(instruction.time / 1000 / 60);
+                            instruction.distance = instruction.distance * 0.000621371192237;
+                        });
+                        return route;
+                    }));
                 });
             }
 
