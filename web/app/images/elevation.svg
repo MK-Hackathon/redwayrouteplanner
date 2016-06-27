@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="20px" viewBox="0 0 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M21.103,12.598 C20.594,11.094 18.797,10.101 17.297,10.688 L11.062,0 L1.77635684e-15,20 L20.25,20 C22.317,20 24,18.318 24,16.25 C24,14.476 22.761,12.985 21.103,12.598 L21.103,12.598 Z M20.25,18 L16.99,18 C15.475,17.992 14.485,16.347 15.282,14.991 L11.687,8.657 L10.609,10.563 L9.609,8.657 L6.583,12.292 L11.104,3.948 L16.625,13.5 C17.5,11.719 19.953,12.812 19.313,14.604 C20.584,14.104 22,14.828 22,16.25 C22,17.215 21.215,18 20.25,18 L20.25,18 Z M18.014,9.421 L15.358,4.796 L16.225,4.298 L18.881,8.923 L18.014,9.421 L18.014,9.421 Z M21.312,11 L18.656,6.375 L19.523,5.877 L22.179,10.502 L21.312,11 L21.312,11 Z" id="Shape" fill="#000000"></path>
+    </g>
+</svg>
