@@ -4,6 +4,8 @@ var https = require('https');
 // var query = {in: ["Willen Lake", "Walnut Tree"], out: ""};
 // var routesSearch = async.compose(graphHopper, openStreetMap, openStreetMap);
 
+const graphhopper = require('./graphhopper_key');
+
 var toReturn = "";
 
 exports.handler = (event, context, callback) => {
@@ -15,7 +17,7 @@ exports.handler = (event, context, callback) => {
 			method: 'GET',
 			json:true
 		    };
-		    options.path = '/api/1/route?' + input + '&vehicle=bike&key=a55445eb-e961-4151-8dce-e818b0052d75';
+		    options.path = '/api/1/route?' + input + '&vehicle=bike&key=' + graphhopper.key;
 		    https.request(options, function (res) {
 			res.on('data', function (chunk) {
 			    toReturn = chunk.toString();
