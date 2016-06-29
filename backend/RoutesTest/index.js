@@ -4,6 +4,8 @@ var https = require('https');
 // var query = {in: ["Willen Lake", "Walnut Tree"], out: ""};
 // var routesSearch = async.compose(graphHopper, openStreetMap, openStreetMap);
 
+const graphhopper = require('./graphhopper_key');
+
 var toReturn = "";
 
 exports.handler = (event, context, callback) => {
@@ -15,7 +17,7 @@ exports.handler = (event, context, callback) => {
 			method: 'GET',
 			json:true
 		    };
-		    options.path = '/api/1/route?' + input + '&vehicle=bike&key=a55445eb-e961-4151-8dce-e818b0052d75';
+		    options.path = '/api/1/route?' + input + '&vehicle=bike&key=' + graphhopper.key;
 		    https.request(options, function (res) {
 			res.on('data', function (chunk) {
 			    toReturn = chunk.toString();
@@ -27,39 +29,35 @@ exports.handler = (event, context, callback) => {
 
 	var openStreetMap = function (query, callback2) {
 	    setTimeout(function () {
-		    var options = {
-			host: "nominatim.openstreetmap.org",
-			port: 443,
-			method: 'GET',
-			json:true
+		    var updateLatLon = function(lat, lon) {
+			var latLon = lat + '%2C' + lon;
+			output = output + "point=" + latLon + "&";
+			if (query.in.length == 1)
+				callback2(null, output);
+			else {
+				var query1 = { in: Array.prototype.slice.call(query.in, 1), out: output };
+				openStreetMap(query1, callback2);
+			}
 		    };
 		    var input = query.in[0];
 		    var output = query.out;
 		    var isStreetName = ! input.lat;
-		    var lat;
-		    var lon;
 		    if (!isStreetName) {
-			lat = input.lat;
-			lon = input.lon;
-			options.path = '/reverse?format=json&lat=' + lat + '&lon=' + lon;
+			updateLatLon(input.lat, input.lon);
 		    } else {
-			options.path = '/search/' + encodeURI(input) + '?format=json&countrycode=gb';
-		    }
-		    https.request(options, function (res) {
-			res.on('data', function (chunk) {
-			    var latLon = lat + '%2C' + lon;
-			    if (isStreetName) {
-				var searchResponse = JSON.parse(chunk);
-				latLon = searchResponse[0].lat + '%2C' + searchResponse[0].lon;
-			    }
-			    output = output + "point=" + latLon + "&";
-			    if (query.in.length == 1)
-				callback2(null, output);
-			    else {
-				var query1 = { in: Array.prototype.slice.call(query.in, 1), out: output };
-				openStreetMap(query1, callback2);
-			    }
+		        var options = {
+			   host: "nominatim.openstreetmap.org",
+			   port: 443,
+			   method: 'GET',
+			   path: '/search/' + encodeURI(input) + '?format=json&countrycode=gb',
+			   json:true
+		        };
+		        https.request(options, function (res) {
+			    res.on('data', function (chunk) {
+			    	var searchResponse = JSON.parse(chunk);
+				updateLatLon(searchResponse[0].lat, searchResponse[0].lon);
 			});}).end();
+		    }
 	    },10);
 	};
 
