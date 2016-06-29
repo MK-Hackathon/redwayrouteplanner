@@ -38,3 +38,6 @@ jspm_packages
 
 # Deployment
 dist
+
+# Sublime workspace
+*.sublime-workspace

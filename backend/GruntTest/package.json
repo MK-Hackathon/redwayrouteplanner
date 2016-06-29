@@ -7,7 +7,9 @@
     "doc": "doc"
   },
   "dependencies": {
-    "grunt": "^1.0.1"
+    "grunt": "^1.0.1",
+    "async": "^1.5.2",
+    "async-waterfall": "^0.1.5"
   },
   "devDependencies": {
     "grunt-aws-lambda": "^0.13.0"
