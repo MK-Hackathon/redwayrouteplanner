@@ -8,8 +8,7 @@
   },
   "dependencies": {
     "grunt": "^1.0.1",
-    "async": "^1.5.2",
-    "async-waterfall": "^0.1.5"
+    "async": "^1.5.2"
   },
   "devDependencies": {
     "grunt-aws-lambda": "^0.13.0"
