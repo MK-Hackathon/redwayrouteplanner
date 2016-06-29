@@ -2,6 +2,8 @@
 const https = require('https');
 const async = require('async');
 
+const graphhopper = require('./graphhopper_key');
+
 function getLocation(location, callback) {
     const options = {
         host: "nominatim.openstreetmap.org",
@@ -31,7 +33,7 @@ function getRoute(locations, options, callback) {
     var requestOptions = {
         host: "graphhopper.com",
         port: 443,
-        path: '/api/1/route?point=' + locations[0] + '&point=' + locations[1] + '&vehicle=bike&key=a55445eb-e961-4151-8dce-e818b0052d75',
+        path: '/api/1/route?point=' + locations[0] + '&point=' + locations[1] + '&vehicle=bike&key=' + graphhopper.key,
         method: 'GET',
         json:true
     };

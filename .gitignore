@@ -39,5 +39,8 @@ jspm_packages
 # Deployment
 dist
 
+# API keys
+*_key.js
+
 # Sublime workspace
 *.sublime-workspace
