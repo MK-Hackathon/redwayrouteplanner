@@ -1,52 +1,57 @@
-'use strict';
-const https = require('https');
-const async = require('async');
+"use strict";
+const https = require("https");
+const async = require("async");
 
-const graphhopper = require('./graphhopper_key');
+const graphhopper = require("./graphhopper_key");
 
 function getLocation(location, callback) {
-    const options = {
-        host: "nominatim.openstreetmap.org",
-        port: 443,
-        path: '/search/' + encodeURI(location) + '?format=json&countrycode=gb',
-        method: 'GET',
-        json:true
-    };
+    if (location.hasOwnProperty("lat")) {
+        var latLong = encodeURI(location.lat + "," + location.lon);
+        callback(null, latLong);
+    } else {
+        const options = {
+            host: "nominatim.openstreetmap.org",
+            port: 443,
+            path: "/search/" + encodeURI(location) + "?format=json&countrycode=gb",
+            method: "GET",
+            json:true
+        };
 
-    var responseString = '';
-    https.request(options,
-        function(res) {
-            res.on('data', (chunk) => {
-                responseString += chunk.toString('utf8');
-            });
+        var responseString = "";
+        https.request(options,
+            function(res) {
+                res.on("data", (chunk) => {
+                    responseString += chunk.toString("utf8");
+                });
 
-            res.on('end', () => {
-                var response = JSON.parse(responseString);
-                var latLong = encodeURI(response[0].lat + ',' + response[0].lon);
-                callback(null, latLong);
-            });
-        }
-    ).end();
+                res.on("end", () => {
+                    var response = JSON.parse(responseString);
+                    var latLong = encodeURI(response[0].lat + "," + response[0].lon);
+                    callback(null, latLong);
+                });
+            }
+        ).end();
+    }
 };
 
 function getRoute(locations, options, callback) {
     var requestOptions = {
         host: "graphhopper.com",
         port: 443,
-        path: '/api/1/route?point=' + locations[0] + '&point=' + locations[1] + '&vehicle=bike&key=' + graphhopper.key,
-        method: 'GET',
+        path: "/api/1/route?point=" + locations[0] + "&point=" + locations[1] + "&vehicle=bike&key=" + graphhopper.key,
+        method: "GET",
         json:true
     };
 
-    var responseString = '';
+    var responseString = "";
     https.request(requestOptions,
         function(res) {
-            res.on('data', (chunk) => {
-                responseString += chunk.toString('utf8');
+            res.on("data", (chunk) => {
+                responseString += chunk.toString("utf8");
             });
 
-            res.on('end', () => {
-                var route = responseString.toString('utf8');
+            res.on("end", () => {
+                var route = responseString.toString("utf8");
                 callback(null, route);
             });
         }
