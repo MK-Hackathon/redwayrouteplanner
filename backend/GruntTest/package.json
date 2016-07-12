@@ -1,0 +1,30 @@
+{
+  "name": "redwayrouteplanner",
+  "version": "1.0.0",
+  "description": "Many people expressed a wish to use the redway more, both for environmental and personal reasons, but noted that they had difficulty navigating the redways, planning a route, knowing fun places to visit and knowing where were the safest places to go.",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "async": "^1.5.2"
+  },
+  "devDependencies": {
+    "grunt-aws-lambda": "^0.13.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MK-Hackathon/redwayrouteplanner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MK-Hackathon/redwayrouteplanner/issues"
+  },
+  "homepage": "https://github.com/MK-Hackathon/redwayrouteplanner#readme"
+}
