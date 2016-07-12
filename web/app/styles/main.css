@@ -1,0 +1,190 @@
+/*
+  Stylerinos
+*/
+
+/* General soft transition */
+
+*:link, *:visited, *:hover, *:active, *:focus {
+-webkit-transition:
+color .25s linear,
+background-color .25s linear,
+border-color .25s linear;
+transition:
+color .25s linear,
+background-color .25s linear,
+border-color .25s linear;
+}
+
+html, body, .map-container, .map-row, .map-width {
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+  font-family: "Lato",Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.leaflet-control-attribution.leaflet-control {
+    display: none;
+}
+
+.btn-primary {
+  background-image: none;
+  background-color: #B65B5C;
+  border: 0px;
+  padding: 5px 20px;
+}
+
+.btn-primary:hover {
+  background-image: none;
+  background-color: #544F64;
+  border: 0px;
+}
+
+.btn-secondary {
+  background-image: none;
+  background-color: #544F64;
+  border: 0px;
+}
+
+.btn-secondary:hover {
+  background-image: none;
+  background-color: #B65B5C;
+  border: 0px;
+}
+
+/* Leaflet zooming buttons */
+
+a.leaflet-control-zoom-in, a.leaflet-control-zoom-out {
+  border-radius: 0px !important;
+  color: #333;
+}
+
+.leaflet-bar {
+  box-shadow: none !important;
+  position: absolute;
+  top: 10px;
+}
+
+/* Map route input form */
+
+form.route-input {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  z-index: 999;
+  width: 80%;
+  background-color: #fff;
+  padding: 20px;
+}
+
+form.route-input input {
+  border: none;
+  border-bottom: 1px solid #979797;
+  margin: 10px;
+  padding-bottom: 10px;
+}
+
+form.route-input label {
+  font-weight: 300;
+  font-size: 16px;
+  display: block;
+  height: 20px;
+}
+
+.route-options {
+  width: 50%;
+  float: left;
+  margin-top: 10px;
+}
+
+.route-type {
+  margin-top: 10px;
+}
+
+.find-my-route {
+  float: right;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+.minimiser {
+  color: #575757;
+  font-size: 16px;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.routes-available.container-fluid.ng-scope {
+    padding: 0px;
+}
+
+.route-info {
+    padding-left: 30px;
+}
+
+.routes-available {
+  position: absolute;
+  bottom: 0px;
+  height: 190px;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  color: #333;
+}
+
+.routes-title {
+  margin-bottom: 20px;
+  width: 100%;
+  border-bottom: 1px solid #979797;
+  padding: 20px;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+  padding-right: 0px;
+  font-weight: 400;
+}
+
+.how-many-routes {
+  font-size: 20px;
+}
+
+.route-edit {
+  font-size: 14px;
+  padding-top: 5px;
+}
+
+.which-route {
+  font-size: 18px;
+  padding: 20px;
+  font-weight: 400;
+}
+
+.minutes {
+  padding: 20px;
+}
+
+.miles {
+  padding: 20px;
+}
+
+
+/* Error div */
+
+.error {
+  font-size: 14px;
+  color: #fff;
+  position: absolute;
+  bottom: 20px;
+  background-color: #B65B5C;
+  padding: 20px;
+  width: 80%;
+  left: 10%;
+}
+
+/* Steps */
+.a-step {
+  border-bottom: 1px solid #E5E5E5;
+  padding: 20px;
+}

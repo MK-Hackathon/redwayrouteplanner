@@ -10,7 +10,11 @@
 angular.module('webApp')
   .controller('MainCtrl', ['$scope', 'leafletData', 'routeFindingService',
       function ($scope, leafletData, routeFindingService) {
-
+          $scope.options = {
+              route: 'fastest',
+              minimiseHills: false,
+              preferRoads: false
+          };
       var colours = ['red', 'blue', 'green'],
           events = [];
 
@@ -45,18 +49,28 @@ angular.module('webApp')
       }
 
       function addRoutes(routes) {
+          if (!routes.length) {
+              $scope.errors = true;
+              return;
+          }
           $scope.routes = routes;
           unregisterEvents();
           routes.forEach(addRoute);
+          $scope.minimiseForm = true;
       }
 
       $scope.findMyRoute = function() {
+          $scope.errors = false;
           routeFindingService.findRoutes($scope.options).then(addRoutes);
       };
 
       $scope.viewSteps = function(i) {
           $scope.selectedRoute = $scope.routes[i];
       };
+
+      $scope.toggleForm = function() {
+          $scope.minimiseForm = !$scope.minimiseForm;
+      }
 
       $scope.paths = $scope.paths || {};
       $scope.bounds = $scope.bounds || {};
@@ -65,6 +79,9 @@ angular.module('webApp')
           center: {
               autoDiscover: true,
               zoom: 12
+          },
+          defaults: {
+              scrollWheelZoom: false
           }
       });
 

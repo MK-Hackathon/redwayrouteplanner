@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                 options: {
                     // Task-specific options go here.
                     region : "eu-west-1",
-                    aliases: "beta",
+                    aliases: "dev",
                     enableVersioning: true
                 }
             },
