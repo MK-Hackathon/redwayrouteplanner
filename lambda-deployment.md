@@ -148,3 +148,77 @@ grunt deploy
 ```
 will also do the package + deploy sequence.
 
+# Versions and stages
+
+The next step is to create stages (`dev` and `prod`) for the lambda function. Details taken from [Using API Gateway stage variables to manage Lambda functions](https://aws.amazon.com/blogs/compute/using-api-gateway-stage-variables-to-manage-lambda-functions/).
+
+## Lambda versions
+Modify the `Gruntfile.js` so that AWS keeps track of versions of the lambda function. In the `lambda-deploy : options` section, add `enableVersioning: true`. Then deploy the function again, and you should have different versions of the function visible in the AWS web interface. 
+
+In the AWS web inteface, choose action > create alias for the function and create two aliases: `dev` should point to `$LATEST` and `prod` which points to a given stable, reliable version. 
+
+Now update the local `Gruntfile.js` to deploy to these two aliaes. Add the `prod` sections to the `package` and `deploy` tasks, and create the `deploy_prod` shortcut:
+
+        lambda_package: {
+            default: {
+              options: {
+                // Task-specific options go here.
+                }
+            },
+            prod: {
+                options: {
+                // Task-specific options go here.
+                }
+            }
+        },
+
+
+        lambda_deploy: {
+            default: {
+                arn: 'arn:aws:lambda:eu-west-1:123456789012:function:RoutesSearch',
+                options: {
+                    // Task-specific options go here.
+                    region : "eu-west-1",
+                    aliases: "dev",
+                    enableVersioning: true
+                }
+            },
+            prod: {
+                arn: 'arn:aws:lambda:eu-west-1:123456789012:function:RoutesSearch',
+                options: {
+                    // Task-specific options go here.
+                    region : "eu-west-1",
+                    aliases: "prod",
+                    enableVersioning: true
+                }
+            }
+        }
+    });
+    
+    grunt.registerTask('deploy', ['lambda_package', 'lambda_deploy:default']);
+    grunt.registerTask('deploy_prod', ['lambda_package', 'lambda_deploy:prod']);
+
+The `dev` alias should always point to the latest version; `prod` will be the fixed version you chose. When you have a new version of the function you're happy with, go to the Lambda web interface and update the `prod` alias to the explicit version you want to use.
+
+## Staging the API
+
+In the AWS API web interface, create two stages, called `dev` and `prod`. 
+
+In the API > Resources > Method > Method Execution page for the overall API (not the staged one), modify the "Lambda Function" description to be `RoutesSearch:${stageVariables.lambdaAlias}`.
+
+The console should detect the new variable and pop up a message about adding permission. Copy the text of the message and use it to create permissions for the two Lambda function versions. (Do this on your local machine's terminal.)
+
+`aws lambda add-permission --function-name arn:aws:lambda:us-west-2:XXXXXXXXXXXXX:function:RouteSearch:dev --source-arn arn:aws:execute-api:us-west-2:XXXXXXXXXXXXX:y91j2l4bnd/*/GET/ --principal apigateway.amazonaws.com --statement-id 95486b16-7d8a-4aca-9322-5f883ab702a6 --action lambda:InvokeFunction`
+
+`aws lambda add-permission --function-name arn:aws:lambda:us-west-2:XXXXXXXXXXXXX:function:RouteSearch:prod --source-arn arn:aws:execute-api:us-west-2:XXXXXXXXXXXXX:y91j2l4bnd/*/GET/ --principal apigateway.amazonaws.com --statement-id 95486b16-7d8a-4aca-9322-5f883ab702a6 --action lambda:InvokeFunction`
+
+Note the `:dev` and `:prod` appended to the function names. The rest of the text is copied directly from the AWS message. You need to do this once, for each alias.
+
+## Testing the staged API
+
+Go to the API web console > (your api) > Resources > Test. When you test the API, you will need to give both the `lambdaAlias` value and the `event.json` description. 
+
+This should direct the API call to different aliased versions of the lambda function.
+
+## Using the staged API
+Calls to `https://xxxxxxxxxx.execute-api.eu-west-1.amazonaws.com/dev/routes` and `https://xxxxxxxxxx.execute-api.eu-west-1.amazonaws.com/prod/routes` should now direct to the different lambda functions. 
